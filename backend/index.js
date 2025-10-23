@@ -1,4 +1,5 @@
-const port = 4000;
+// const port = 4000;
+const PORT = process.env.PORT || 4000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -41,9 +42,16 @@ app.use('/images',express.static('upload/images'))
 app.post("/upload",upload.single('product'),(req,res)=>{
      res.json({
         success:1,
-        image_url:`http://localhost:${port}/images/${req.file.filename}`
+        image_url:`/images/${req.file.filename}`
      })
 })
+
+// app.post("/upload",upload.single('product'),(req,res)=>{
+//      res.json({
+//         success:1,
+//         image_url:`http://localhost:${port}/images/${req.file.filename}`
+//      })
+// })
 
 //Schema from creating products
 const Product = mongoose.model("Product",{
@@ -525,11 +533,21 @@ app.post('/getcart',fetchUser,async (req,res)=>{
     res.json(userData.cartData);
 })
 
-app.listen(port,(error)=>{
+
+app.listen(PORT, '0.0.0.0', (error)=>{
     if (!error) {
-        console.log("Server Running on Port "+port)
+        console.log("Server Running on Port "+PORT)
     }
     else{
         console.log("Error "+error)
     }
 })
+
+// app.listen(port,(error)=>{
+//     if (!error) {
+//         console.log("Server Running on Port "+port)
+//     }
+//     else{
+//         console.log("Error "+error)
+//     }
+// })
