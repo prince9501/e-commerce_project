@@ -19,26 +19,22 @@ app.use(cors());
 // Data base connection with Mongodb
 
 // Database connection with MongoDB
-mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app?retryWrites=true&w=majority&appName=Cluster0", {
+// Database connection with MongoDB - FIXED FOR RENDER
+mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app?retryWrites=true&w=majority&directConnection=true", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
     serverSelectionTimeoutMS: 50000,
     socketTimeoutMS: 45000,
     ssl: true,
-    sslValidate: true,
-    retryWrites: true,
-    w: 'majority'
+    retryWrites: true
 });
 
-// Add connection event handlers
 mongoose.connection.on('connected', () => {
-    console.log('✅ MongoDB connected successfully');
+    console.log('✅ MongoDB connected successfully to Render');
 });
 
 mongoose.connection.on('error', (err) => {
-    console.log('❌ MongoDB connection error:', err);
-});
-
-mongoose.connection.on('disconnected', () => {
-    console.log('⚠️ MongoDB disconnected');
+    console.log('❌ MongoDB connection failed:', err.message);
 });
 
 // mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app",{
