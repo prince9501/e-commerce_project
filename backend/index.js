@@ -17,10 +17,34 @@ app.use(express.json());
 app.use(cors());
 
 // Data base connection with Mongodb
-mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app",{
-     serverSelectionTimeoutMS: 30000, // 30 seconds
-     socketTimeoutMS: 45000, // 45 seconds
+
+// Database connection with MongoDB
+mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app?retryWrites=true&w=majority&appName=Cluster0", {
+    serverSelectionTimeoutMS: 50000,
+    socketTimeoutMS: 45000,
+    ssl: true,
+    sslValidate: true,
+    retryWrites: true,
+    w: 'majority'
 });
+
+// Add connection event handlers
+mongoose.connection.on('connected', () => {
+    console.log('✅ MongoDB connected successfully');
+});
+
+mongoose.connection.on('error', (err) => {
+    console.log('❌ MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+    console.log('⚠️ MongoDB disconnected');
+});
+
+// mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app",{
+//      serverSelectionTimeoutMS: 30000, // 30 seconds
+//      socketTimeoutMS: 45000, // 45 seconds
+// });
 
 // API Creation
 app.get("/", (req,res)=>{
