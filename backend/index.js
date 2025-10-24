@@ -19,14 +19,11 @@ app.use(cors());
 // Data base connection with Mongodb
 
 // Database connection with MongoDB
-// Database connection with MongoDB - FIXED FOR RENDER
-mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app?retryWrites=true&w=majority&directConnection=true", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+
+// Data base connection with Mongodb - SIMPLE & CORRECT
+mongoose.connect("mongodb+srv://user2000:101010@cluster0.gt9vxi3.mongodb.net/e-commerce_app?retryWrites=true&w=majority", {
     serverSelectionTimeoutMS: 50000,
-    socketTimeoutMS: 45000,
-    ssl: true,
-    retryWrites: true
+    socketTimeoutMS: 45000
 });
 
 mongoose.connection.on('connected', () => {
