@@ -1,5 +1,6 @@
 // const port = 4000;
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 10000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -38,6 +39,24 @@ mongoose.connection.on('error', (err) => {
 //      serverSelectionTimeoutMS: 30000, // 30 seconds
 //      socketTimeoutMS: 45000, // 45 seconds
 // });
+
+// Add this as the FIRST route - Fix for 502 Bad Gateway
+app.get("/", (req, res) => {
+    res.json({ 
+        message: "E-commerce Backend API is Running",
+        status: "OK",
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Health check route for Render
+app.get("/health", (req, res) => {
+    res.status(200).json({ 
+        status: "healthy",
+        database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+        timestamp: new Date().toISOString()
+    });
+});
 
 // API Creation
 app.get("/", (req,res)=>{
@@ -550,6 +569,8 @@ app.post('/getcart',fetchUser,async (req,res)=>{
     res.json(userData.cartData);
 })
 
+// Use Render's provided port
+
 
 app.listen(PORT, '0.0.0.0', (error)=>{
     if (!error) {
@@ -559,6 +580,16 @@ app.listen(PORT, '0.0.0.0', (error)=>{
         console.log("Error "+error)
     }
 })
+
+
+// app.listen(PORT, '0.0.0.0', (error)=>{
+//     if (!error) {
+//         console.log("Server Running on Port "+PORT)
+//     }
+//     else{
+//         console.log("Error "+error)
+//     }
+// })
 
 // app.listen(port,(error)=>{
 //     if (!error) {
