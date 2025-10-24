@@ -9,7 +9,7 @@ const ListOrders = () => {
     try {
       setLoading(true);
       console.log("Fetching orders...");
-      const response = await fetch('https://e-commerce-project-1-xiq3.onrender.com/allorders');
+      const response = await fetch('https://e-commerce-project-1-af2p.onrender.com/allorders');
       const data = await response.json();
       console.log("Orders data:", data);
       setAllOrders(data);
@@ -27,7 +27,7 @@ const ListOrders = () => {
 
   const updateOrderStatus = async (id, status) => {
     try {
-      await fetch('https://e-commerce-project-1-xiq3.onrender.com/updateorder', {
+      await fetch('https://e-commerce-project-1-af2p.onrender.com/updateorder', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -66,7 +66,7 @@ const ListOrders = () => {
         <div className="no-orders">
           <h3>No orders found</h3>
           <p>Create sample data first by visiting:</p>
-          <code>http://localhost:4000/create-sample-data</code>
+          <code>https://e-commerce-project-1-af2p.onrender.com/create-sample-data</code>
         </div>
       ) : (
         <div className="orders-list">
