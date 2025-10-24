@@ -9,7 +9,7 @@ const ListUsers = () => {
     try {
       setLoading(true);
       console.log("Fetching users...");
-      const response = await fetch('http://localhost:4000/allusers');
+      const response = await fetch('https://e-commerce-project-1-xiq3.onrender.com/allusers');
       const data = await response.json();
       console.log("Users data:", data);
       setAllUsers(data);
@@ -29,7 +29,7 @@ const ListUsers = () => {
     try {
       const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
       
-      await fetch('http://localhost:4000/updateuser', {
+      await fetch('https://e-commerce-project-1-xiq3.onrender.com/updateuser', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

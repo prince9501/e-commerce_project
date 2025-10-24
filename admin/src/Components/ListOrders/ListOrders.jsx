@@ -9,7 +9,7 @@ const ListOrders = () => {
     try {
       setLoading(true);
       console.log("Fetching orders...");
-      const response = await fetch('http://localhost:4000/allorders');
+      const response = await fetch('https://e-commerce-project-1-xiq3.onrender.com/allorders');
       const data = await response.json();
       console.log("Orders data:", data);
       setAllOrders(data);
@@ -27,7 +27,7 @@ const ListOrders = () => {
 
   const updateOrderStatus = async (id, status) => {
     try {
-      await fetch('http://localhost:4000/updateorder', {
+      await fetch('https://e-commerce-project-1-xiq3.onrender.com/updateorder', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
