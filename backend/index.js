@@ -78,7 +78,7 @@ app.use('/images',express.static('upload/images'))
 app.post("/upload",upload.single('product'),(req,res)=>{
      res.json({
         success:1,
-        image_url:`/images/${req.file.filename}`
+        image_url:`https://e-commerce-project-1-af2p.onrender.com/images/${req.file.filename}`
      })
 })
 
